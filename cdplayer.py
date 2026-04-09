@@ -185,6 +185,8 @@ def show_track_text(text,blink):
         screen.blit(font_track.render(text, False, (255, 255, 255)),(630, 200))
         logging.info("Showing Text: " + text)
     pygame.display.flip()
+#Need to work on displaying track time and updating it as the track plays, currently just shows the total track time
+
 
 def show_cover():
     pygameSurface = pygame.image.load(os.path.join(picdir,cd_front_cover)).convert_alpha()
@@ -204,7 +206,7 @@ def change_volume():
 def load_cd():
     show_track_text("Loading Disc",False)
     logging.info("Loading Disc")
-    global cd_current_disc, cd_total_tracks, cd_track_list, cd_tracks
+    global cd_current_disc, cd_total_tracks, cd_track_list, cd_tracks, cd_current_track
     cd_current_disc = discid.read()
     cd_current_track = 1
     cd_total_tracks = cd_current_disc.last_track_num

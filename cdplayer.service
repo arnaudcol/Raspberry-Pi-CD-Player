@@ -1,0 +1,33 @@
+[Unit]
+Description=CD Player
+After=local-fs.target sound.target
+Wants=sound.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+TTYPath=/dev/tty1
+StandardInput=tty
+StandardOutput=tty
+StandardError=journal
+#TTYReset=yes
+#TTYVHangup=yes
+#TTYVTDisallocate=yes
+
+#ExecStart=/usr/bin/python3 /home/pi/cdplayer12.py
+ExecStart=/bin/bash -c '/usr/bin/python3 /home/pi/cdplayer12.py >> /home/pi/cdplayer.log 2>&1'
+
+Restart=on-failure
+RestartSec=5
+
+Environment=SDL_VIDEODRIVER=fbcon
+Environment=SDL_FBDEV=/dev/fb0
+Environment=SDL_NOMOUSE=1
+Environment=SDL_AUDIODRIVER=alsa
+Environment=HOME=/home/pi
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Environment=PULSE_RUNTIME_PATH=/run/user/1000/pulse
+
+[Install]
+WantedBy=multi-user.target
